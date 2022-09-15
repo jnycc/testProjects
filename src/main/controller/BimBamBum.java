@@ -1,41 +1,41 @@
+package main.controller;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class BimBamBumLauncher {
-    private static Map<Integer, String> mapBBB = new TreeMap<>();
+public class BimBamBum {
+    private Map<Integer, String> mapBBB = new TreeMap<>();
 
-
-    public static void main(String[] args) {
-        List<Integer> numberList = new ArrayList<>(1000);
-        for (int i = 1; i <= 1000; i++) {
-            numberList.add(i);
-        }
+    public BimBamBum() {
         mapBBB.put(3, "Bim");
         mapBBB.put(5, "Bam");
         mapBBB.put(7, "Bum");
-//        doBimBamBumSimple(numberList);
-        doBimBamBumBetter(numberList);
     }
 
-    private static void doBimBamBumBetter(List<Integer> numberList) {
+    public List<String> doBimBamBumBetter(List<Integer> numberList) {
+        List<String> listBBB = new ArrayList<>(numberList.size());
         for (Integer number : numberList) {
+            StringBuilder stringBuilder = new StringBuilder();
             boolean dividable = false;
             for (Integer key : mapBBB.keySet()) {
                 if (number % key == 0) {
-                    System.out.print(mapBBB.get(key));
+//                    System.out.print(mapBBB.get(key));
+                    stringBuilder.append(mapBBB.get(key));
                     dividable = true;
                 }
             }
             if (!dividable) {
-                System.out.print(number);
+//                System.out.print(number);
+                stringBuilder.append(number);
             }
-            System.out.println();
+            listBBB.add(stringBuilder.toString());
         }
+        return listBBB;
     }
 
-    private static void doBimBamBumSimple(List<Integer> numberList) {
+    public void doBimBamBumSimple(List<Integer> numberList) {
         for (Integer number : numberList) {
             boolean dividable = false;
             if (number % 3 == 0) {
