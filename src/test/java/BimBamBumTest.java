@@ -1,11 +1,13 @@
-package test.controller;
-
-import main.controller.BimBamBum;
+import controller.BimBamBum;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,6 +26,29 @@ class BimBamBumTest {
         bbbResult = bbb.doBimBamBumBetter(numberList);
     }
 
+    @ParameterizedTest
+    @MethodSource("provideParameters")
+    void bbbOutputTests(String expectedString, int bbbListIndex) {
+        String actual = bbbResult.get(bbbListIndex - 1);
+        assertEquals(expectedString, actual);
+    }
+
+    private static Stream<Arguments> provideParameters() {
+        return Stream.of(
+                Arguments.of("1", 1),
+                Arguments.of("2", 2),
+                Arguments.of("Bim", 3),
+                Arguments.of("Bam", 5),
+                Arguments.of("Bum", 7),
+                Arguments.of("BimBam", 15),
+                Arguments.of("BimBum", 504),
+                Arguments.of("BimBamBum", 210),
+                Arguments.of("BamBum", 385),
+                Arguments.of("Bam", 1000)
+        );
+    }
+
+    /*
     @Test
     void bbbTest1() {
         String expected = "1";
@@ -79,7 +104,7 @@ class BimBamBumTest {
         System.out.println("Result for 1000: " + actual);
         assertEquals(expected, actual);
     }
-
+*/
     @Test
     void sizeTest() {
         int expected = 1000;
